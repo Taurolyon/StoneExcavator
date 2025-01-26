@@ -80,6 +80,6 @@ public class DoDamagePatch {
     }
 
     public static boolean shouldPropagate(GameObject gameObject) {
-        return gameObject.isOre;
+        return gameObject.isStone;
     }
 }
