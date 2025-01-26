@@ -5,12 +5,12 @@ plugins {
 // Change the values below this to your mods values
 // To change the project name, edit the settings.gradle file
 
-project.ext.modID = "engcake.excavator" // The unique id of your mod. Must be all lowercase and cannot use special characters.
-project.ext.modName = "Ore Excavator" // The display name of your mod.
-project.ext.modVersion = "0.2.1" // Your current builds version. Must follow the xx.xx... format.
-project.ext.gameVersion = "0.28.1" // The target game version.
-project.ext.modDescription = "Quickly mine vein of ore with one click!" // Short description of what your mod is.
-project.ext.author = "EngCake" // Your name
+project.ext.modID = "tauro.excavator" // The unique id of your mod. Must be all lowercase and cannot use special characters.
+project.ext.modName = "Stone Excavator" // The display name of your mod.
+project.ext.modVersion = "0.0.1" // Your current builds version. Must follow the xx.xx... format.
+project.ext.gameVersion = "0.30.0" // The target game version.
+project.ext.modDescription = "Quickly mine vein of stone with one click!" // Short description of what your mod is.
+project.ext.author = "Taurolyon" // Your name
 
 /**
  * When setting clientside to true, it means servers do not need this mod for clients to connect and vice versa.
