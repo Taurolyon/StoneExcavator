@@ -9,7 +9,7 @@ project.ext.modID = "tauro.excavator" // The unique id of your mod. Must be all 
 project.ext.modName = "Stone Excavator" // The display name of your mod.
 project.ext.modVersion = "0.0.1" // Your current builds version. Must follow the xx.xx... format.
 project.ext.gameVersion = "0.30.0" // The target game version.
-project.ext.modDescription = "Quickly mine vein of stone with one click!" // Short description of what your mod is.
+project.ext.modDescription = "Quickly mine stone with one click!" // Short description of what your mod is.
 project.ext.author = "Taurolyon" // Your name
 
 /**
@@ -49,6 +49,17 @@ repositories {
 
 configurations {
     libDepends
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java"] // Your Java source directory
+        }
+        resources {
+            srcDirs = ["src/main/resources"] // Your custom resources directory
+        }
+    }
 }
 
 sourceSets.main.java.destinationDirectory.set(file("build/mod/"))
@@ -92,9 +103,11 @@ task createModInfoFile(type: JavaExec) {
     description "Creates the mod info file"
 
     classpath = files(gameDirectory + "/Necesse.jar")
+    def modinfoDir = sourceSets.main.java.destinationDirectory.asFile.get()
+
 
     main = "CreateModInfoFile"
-    args "-file", "${sourceSets.main.java.destinationDirectory}/mod.info",
+    args "-file", "${modinfoDir}/mod.info",
             "-id", "${project.ext.modID}",
             "-name", "${project.ext.modName}",
             "-version", "${project.ext.modVersion}",
@@ -157,6 +170,10 @@ task buildModJar(type: Jar) {
     from sourceSets.main.java.destinationDirectory
     // Add the dependencies
     from configurations.libDepends.collect { it.isDirectory() ? it : zipTree(it) }
+
+    from(sourceSets.main.resources.srcDirs) {
+        into "resources" // Put everything from src/resources/ into the "resources" folder inside the JAR
+    }
 
     archiveFileName.set("${jarName}.jar")
     destinationDirectory.set(file(buildLocation))
