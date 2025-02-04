@@ -25,6 +25,10 @@ import net.bytebuddy.asm.Advice;
         }
 )
 public class DoDamagePatch {
+
+    // Define a constant for the maximum number of objects to affect
+    private static final int MAX_AFFECTED_OBJECTS = 50;
+
     @Advice.OnMethodExit
     static void onExit(
             @Advice.This DamagedObjectEntity self,
@@ -37,7 +41,7 @@ public class DoDamagePatch {
             @Advice.Argument(6) int mouseX,
             @Advice.Argument(7) int mouseY,
             @Advice.Return(readOnly = true) ObjectDamageResult result
-            ) {
+    ) {
         if (client == null) {
             return;
         }
@@ -55,8 +59,15 @@ public class DoDamagePatch {
         int tileX = self.getTileX();
         int tileY = self.getTileY();
 
+        // Track the number of affected objects
+        int affectedObjects = 0;
+
         LevelObject[] adjacentObjects = level.getAdjacentLevelObjects(tileX, tileY);
         for (LevelObject levelObject : adjacentObjects) {
+            if (affectedObjects >= MAX_AFFECTED_OBJECTS) {
+                break; // Stop if we've reached the maximum number of objects
+            }
+
             int currentTileX = levelObject.tileX;
             int currentTileY = levelObject.tileY;
 
@@ -76,6 +87,9 @@ public class DoDamagePatch {
                     mouseX,
                     mouseY
             );
+
+            // Increment the counter
+            affectedObjects++;
         }
     }
 

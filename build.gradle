@@ -7,7 +7,7 @@ plugins {
 
 project.ext.modID = "tauro.excavator" // The unique id of your mod. Must be all lowercase and cannot use special characters.
 project.ext.modName = "Stone Excavator" // The display name of your mod.
-project.ext.modVersion = "0.0.1" // Your current builds version. Must follow the xx.xx... format.
+project.ext.modVersion = "0.0.2" // Your current builds version. Must follow the xx.xx... format.
 project.ext.gameVersion = "0.30.0" // The target game version.
 project.ext.modDescription = "Quickly mine stone with one click!" // Short description of what your mod is.
 project.ext.author = "Taurolyon" // Your name
@@ -128,7 +128,7 @@ task runClient(type: JavaExec) {
 
     classpath = files(gameDirectory + "/Necesse.jar")
 
-    jvmArgs "-Xms512m", "-Xmx4G", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseG1GC", "-XX:G1NewSizePercent=20", "-XX:G1ReservePercent=20", "-XX:MaxGCPauseMillis=50", "-XX:G1HeapRegionSize=32M"
+    jvmArgs "-Xms512m", "-Xmx6G", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseG1GC", "-XX:G1NewSizePercent=20", "-XX:G1ReservePercent=20", "-XX:MaxGCPauseMillis=50", "-XX:G1HeapRegionSize=32M"
     args "-dev", "-mod \"${buildLocation}\""
 }
 
